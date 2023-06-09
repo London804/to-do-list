@@ -1,5 +1,9 @@
 .text-input {
-    width: 10rem;
+    width: 15rem;
     height: 2rem;
     padding: 0.625rem;
+}
+
+.toDo--completed {
+    text-decoration: line-through;
 }

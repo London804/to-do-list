@@ -12,6 +12,9 @@ interface Todo {
 export default function Home() {
   const [todos, setTodos] = useState<Array<Todo>>([]);
   const [inputValue, setInputValue] = useState('');
+  const [editMode, setEditMode] = useState(null); 
+  const [editValue, setEditValue] = useState('');
+
 
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
@@ -49,9 +52,24 @@ export default function Home() {
     });
   }
 
-  // addToDo
-  // deleteToDo
-  // completeToDo
+  const updateTodo = (id) => {
+    if (editValue.trim() !== '') {
+      setTodos((prevTodos) => {
+        const updatedTodos = prevTodos.map((todo) => {
+          if (todo.id === id) {
+            return {
+              ...todo,
+              text: editValue,
+            };
+          }
+          return todo;
+        });
+        return updatedTodos;
+      });
+    }
+    setEditMode(null);
+    setEditValue('');
+  };
 
   useEffect(() => {
     console.log('todos', todos)
@@ -79,10 +97,24 @@ export default function Home() {
             <li 
               className='mt-4 u-flex u-justifyBetween'
               key={todo.id}>
-              <p className={todo.completed ? 'toDo--completed' : ''}>{todo.text}</p>
+              {editMode === todo.id ? (
+                <input
+                  type="text"
+                  className='text-input text-input--small'
+                  value={editValue}
+                  onChange={(e) => setEditValue(e.target.value)}
+                  onBlur={() => updateTodo(todo.id)}
+                  autoFocus
+                />
+              ) : (
+                <div>
+                  <p className={todo.completed ? 'toDo--completed' : ''}>{todo.text}</p>
+                </div>
+              )}
               <div className='u-flex'>
-                <button className='mr-4' onClick={() => completeToDo(todo.id)}>Done</button>
-                <button onClick={() => deleteTodo(index)}>Delete</button>
+                <button className='mr-4' onClick={() => completeToDo(todo.id)}>{todo.completed ? 'Undo' : 'Done'}</button>
+                <button className='mr-4' onClick={() => deleteTodo(index)}>Delete</button>
+                <button onClick={() => setEditMode(todo.id)}>Edit</button>
               </div>
             </li>
           ))}

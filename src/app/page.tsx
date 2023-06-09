@@ -15,7 +15,6 @@ export default function Home() {
   const [editMode, setEditMode] = useState(null); 
   const [editValue, setEditValue] = useState('');
 
-
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
   };
@@ -71,6 +70,13 @@ export default function Home() {
     setEditValue('');
   };
 
+  const handleAddTodoKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      addTodo();
+    }
+  };
+
+
   useEffect(() => {
     console.log('todos', todos)
   }, [todos]);
@@ -86,6 +92,7 @@ export default function Home() {
             value={inputValue}
             onChange={handleInputChange}
             placeholder="Enter a task..."
+            onKeyDown={handleAddTodoKeyDown}
           />
           <button onClick={addTodo}>Add</button>
         </div>

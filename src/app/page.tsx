@@ -88,15 +88,17 @@ export default function Home() {
 
 
   useEffect(() => {
-    console.log('todos', todos)
     const todosJSON = JSON.stringify(todos);
     sessionStorage.setItem('todos', todosJSON);
   }, [todos]);
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <main className="container">
       <div className='w-96'>
-        <h1>TODO List</h1>
+        <div className="mb-4">
+          <h2>Get S*it Done</h2>
+
+        </div>
         <div className='u-flex u-justifyBetween'>
           <input
             className='text-input'
@@ -110,7 +112,7 @@ export default function Home() {
         </div>
         <ul className='w-96'>
           <li className='mt-4 u-flex u-justifyBetween'>
-            Things to do
+            <p className='t-bold'>All Tasks</p>
           </li>
           {todos && todos.map((todo, index) => (
             <li 

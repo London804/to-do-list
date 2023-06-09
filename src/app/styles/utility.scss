@@ -1,0 +1,89 @@
+.u-flex {
+    display: flex;
+}
+
+.u-hidden {
+    display: none;
+}
+
+.u-relative {
+    position: relative;
+}
+
+.u-absolute {
+    position: absolute;
+}
+
+.u-row {
+    flex-direction: row;
+}
+
+.u-row-reverse {
+    flex-direction: row-reverse;
+}
+
+.u-column {
+    flex-direction: column;
+}
+
+// TODO: change to dash case
+.u-alignCenter {
+    align-items: center;
+}
+
+.u-alignBaseline {
+    align-items: baseline;
+}
+
+.u-alignEnd {
+    align-items: flex-end;
+}
+
+.u-justifyCenter {
+    justify-content: center;
+}
+
+.u-justifyBetween {
+    justify-content: space-between;
+}
+
+.u-justifyEnd {
+    justify-content: flex-end;
+}
+
+.u-fillRemaining {
+    flex: 1;
+}
+
+.u-relative {
+    position: relative;
+}
+
+.u-maxX {
+    width: 100%;
+}
+
+.u-maxY {
+    height: 100%;
+}
+
+.u-maxXY {
+    height: 100%;
+    width: 100%;
+}
+
+.u-hidden {
+    overflow: hidden;
+}
+
+.u-scroll {
+    overflow: scroll;
+}
+
+.u-wrap {
+    flex-wrap: wrap;
+}
+
+.u-nowrap {
+    white-space: nowrap;
+}

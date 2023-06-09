@@ -76,9 +76,21 @@ export default function Home() {
     }
   };
 
+  const getTodosFromSessionStorage = () => {
+    const todosJSON = sessionStorage.getItem('todos');
+    return JSON.parse(todosJSON) || [];
+  };
+
+  useEffect(() => {
+    const storedTodos = getTodosFromSessionStorage();
+    setTodos(storedTodos);
+  }, []);
+
 
   useEffect(() => {
     console.log('todos', todos)
+    const todosJSON = JSON.stringify(todos);
+    sessionStorage.setItem('todos', todosJSON);
   }, [todos]);
 
   return (

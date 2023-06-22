@@ -128,7 +128,7 @@ export default function Home() {
                 />
               ) : (
                 <div>
-                  <p className={todo.completed ? 'toDo--completed' : ''}>{todo.text}</p>
+                  <p className={todo.completed ? 'toDo--completed' : 'toDo'}>{todo.text}</p>
                 </div>
               )}
               <div className='u-flex'>

@@ -1,13 +1,11 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-
 
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+  --gradient-blue: 139, 198, 236, 1;
+  --gradient-purple: 149, 153, 226, 1;
+  /* #8BC6EC */
 }
 
 @media (prefers-color-scheme: dark) {
@@ -20,10 +18,17 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
+  /* background: linear-gradient(
       to bottom,
       transparent,
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+    */
+    background-color: var(--gradient-blue); 
+    background-image: linear-gradient(135deg, rgba(var(--gradient-blue)) 0%, rgba(var(--gradient-purple)) 100%);
+    /* background-color: #9599E2;
+    background-image: linear-gradient(333deg, #9599E2 0%, #8BC6EC 50%, #ffffff 100%); */
+
+
 }

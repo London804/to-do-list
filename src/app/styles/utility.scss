@@ -91,3 +91,7 @@
 .t-bold {
     font-weight: bold;
 }
+
+.button + .button {
+    margin-left: 1rem;
+}

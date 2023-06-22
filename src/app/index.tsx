@@ -94,9 +94,10 @@ export default function Home() {
 
   return (
     <main className="container">
+      <div className='w-96'>
+        <div className="mb-4">
+          <h2>Get S*it Done</h2>
 
-        <div className="header">
-          <h2>Simple To-do-list</h2>
         </div>
         <div className='u-flex u-justifyBetween'>
           <input
@@ -109,13 +110,13 @@ export default function Home() {
           />
           <button onClick={addTodo}>Add</button>
         </div>
-        <ul className='toDo-list'>
-          <li className='toDo-list__header'>
-            <p className='t-bold'>What would you like to do today?</p>
+        <ul className='w-96'>
+          <li className='mt-4 u-flex u-justifyBetween'>
+            <p className='t-bold'>All Tasks</p>
           </li>
           {todos && todos.map((todo, index) => (
             <li 
-              className='toDo-list__task'
+              className='mt-4 u-flex u-justifyBetween'
               key={todo.id}>
               {editMode === todo.id ? (
                 <input
@@ -132,14 +133,17 @@ export default function Home() {
                 </div>
               )}
               <div className='u-flex'>
-                <button className='button' onClick={() => completeToDo(todo.id)}>{todo.completed ? 'Undo' : 'Done'}</button>
-                <button className='button' onClick={() => deleteTodo(index)}>Delete</button>
-                <button className='button' onClick={() => setEditMode(todo.id)}>Edit</button>
+                <button className='mr-4' onClick={() => completeToDo(todo.id)}>{todo.completed ? 'Undo' : 'Done'}</button>
+                <button className='mr-4' onClick={() => deleteTodo(index)}>Delete</button>
+                <button onClick={() => setEditMode(todo.id)}>Edit</button>
               </div>
             </li>
           ))}
         </ul>
-
+      </div>
+     
+    
+      
 
     </main>
   )

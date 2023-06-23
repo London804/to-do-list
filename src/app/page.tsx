@@ -1,5 +1,4 @@
 "use client"; // This is a client component 👈🏽
-import Image from 'next/image'
 import { useEffect, useState } from 'react';
 import './styles/toDo.scss';
 
@@ -15,7 +14,7 @@ export default function Home() {
   const [editMode, setEditMode] = useState(null); 
   const [editValue, setEditValue] = useState('');
 
-  const handleInputChange = (event) => {
+  const handleInputChange = (event: any) => {
     setInputValue(event.target.value);
   };
 
@@ -26,7 +25,7 @@ export default function Home() {
         text: inputValue,
         completed: false,
       };
-      setTodos([...todos, newTodo]);
+      setTodos([newTodo, ...todos]);
       setInputValue('');
     }
   };
@@ -47,11 +46,21 @@ export default function Home() {
         }
         return todo;
       });
-      return updatedTodos;
+
+      const sortedTodos = updatedTodos.sort((a, b) => {
+        if (a.completed && !b.completed) {
+          return 1; 
+        }
+        if (!a.completed && b.completed) {
+          return -1; 
+        }
+        return 0;
+      });
+      return sortedTodos;
     });
   }
 
-  const updateTodo = (id) => {
+  const updateTodo = (id: number) => {
     if (editValue.trim() !== '') {
       setTodos((prevTodos) => {
         const updatedTodos = prevTodos.map((todo) => {
@@ -70,15 +79,21 @@ export default function Home() {
     setEditValue('');
   };
 
-  const handleAddTodoKeyDown = (e) => {
+  const handleAddTodoKeyDown = (e: any) => {
     if (e.key === 'Enter') {
       addTodo();
     }
   };
 
+  const handleEditTodoKeyDown = (e: any, todo: number) => {
+    if (e.key === 'Enter') {
+      updateTodo(todo);
+    }
+  }
+
   const getTodosFromSessionStorage = () => {
     const todosJSON = sessionStorage.getItem('todos');
-    return JSON.parse(todosJSON) || [];
+    return JSON.parse(todosJSON as any) || [];
   };
 
   useEffect(() => {
@@ -124,23 +139,22 @@ export default function Home() {
                   value={editValue}
                   onChange={(e) => setEditValue(e.target.value)}
                   onBlur={() => updateTodo(todo.id)}
+                  onKeyDown={(e) => handleEditTodoKeyDown(e, todo.id)}
                   autoFocus
                 />
               ) : (
                 <div>
-                  <p className={todo.completed ? 'toDo--completed' : 'toDo'}>{todo.text}</p>
+                  <p className={todo.completed ? 'toDo-completed' : 'toDo'}>{todo.text}</p>
                 </div>
               )}
               <div className='u-flex'>
                 <button className='button' onClick={() => completeToDo(todo.id)}>{todo.completed ? 'Undo' : 'Done'}</button>
                 <button className='button' onClick={() => deleteTodo(index)}>Delete</button>
-                <button className='button' onClick={() => setEditMode(todo.id)}>Edit</button>
+                <button className='button' onClick={() => setEditMode(todo.id as any)}>Edit</button>
               </div>
             </li>
           ))}
         </ul>
-
-
     </main>
   )
 }

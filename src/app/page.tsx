@@ -2,6 +2,7 @@
 import Image from 'next/image'
 import { useEffect, useState } from 'react';
 import './styles/toDo.scss';
+import Banner from './components/banner';
 
 interface Todo {
   id: number;
@@ -9,15 +10,29 @@ interface Todo {
   completed: boolean;
 }
 
+const completionMessages: Array<string> = [
+  'Nice work!',
+  'Good job!',
+  'Way to get things done!',
+  'Keep it coming!',
+  'Good work!',
+  'Well done!',
+];
+
 export default function Home() {
   const [todos, setTodos] = useState<Array<Todo>>([]);
   const [inputValue, setInputValue] = useState('');
   const [editMode, setEditMode] = useState(null); 
   const [editValue, setEditValue] = useState('');
+  const [completeMessage, setCompleteMessage] = useState('');
 
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
   };
+
+  function getRandomInt(max: number) {
+    return completionMessages[Math.floor(Math.random() * max)];
+  }
 
   const addTodo = () => {
     if (inputValue.trim() !== '') {
@@ -49,6 +64,8 @@ export default function Home() {
       });
       return updatedTodos;
     });
+
+    setCompleteMessage(getRandomInt(completionMessages.length))
   }
 
   const updateTodo = (id) => {
@@ -92,9 +109,26 @@ export default function Home() {
     sessionStorage.setItem('todos', todosJSON);
   }, [todos]);
 
+
+
   return (
     <main className="container">
-
+      {todos && todos.map((todo) => {
+        if (todo.completed) {
+          return (
+            <div 
+              className='completion-alert show' 
+              key={todo.id}>
+              <Banner
+                message={completeMessage}
+                type='success'
+              />
+            </div>
+          )
+        }
+       })}
+     
+      <section className="subContainer">
         <div className="header">
           <h2>Simple To-do-list</h2>
         </div>
@@ -139,7 +173,7 @@ export default function Home() {
             </li>
           ))}
         </ul>
-
+      </section>
 
     </main>
   )
